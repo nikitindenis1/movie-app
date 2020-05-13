@@ -1,0 +1,15 @@
+.movie__page{
+    width: 100vw;
+    height: 100vh;
+    background: #141414;
+    position: fixed;
+    right: 0px;
+    top: 0px;
+    z-index: 999999999;
+    width: 0px;
+    transition: 0.3s all;
+}
+
+#movie__page--active{
+  width: 100vw;
+}

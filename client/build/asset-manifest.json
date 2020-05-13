@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b926f136.chunk.css",
+    "main.js": "/static/js/main.43a3cb5d.chunk.js",
+    "main.js.map": "/static/js/main.43a3cb5d.chunk.js.map",
+    "runtime-main.js": "/static/js/runtime-main.f254fc23.js",
+    "runtime-main.js.map": "/static/js/runtime-main.f254fc23.js.map",
+    "static/js/2.38a1f604.chunk.js": "/static/js/2.38a1f604.chunk.js",
+    "static/js/2.38a1f604.chunk.js.map": "/static/js/2.38a1f604.chunk.js.map",
+    "index.html": "/index.html",
+    "precache-manifest.ce152f4995d760388f3a164755615577.js": "/precache-manifest.ce152f4995d760388f3a164755615577.js",
+    "service-worker.js": "/service-worker.js",
+    "static/css/main.b926f136.chunk.css.map": "/static/css/main.b926f136.chunk.css.map",
+    "static/media/index.css": "/static/media/Montserrat-Thin.43dd5b7a.ttf"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.f254fc23.js",
+    "static/js/2.38a1f604.chunk.js",
+    "static/css/main.b926f136.chunk.css",
+    "static/js/main.43a3cb5d.chunk.js"
+  ]
+}
