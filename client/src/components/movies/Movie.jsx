@@ -1,9 +1,13 @@
 import React, { Component } from "react";
 import { IMAGES_API, VIDEO_API } from "../../tools/keys";
 import { apiGetRequest } from "../../api/api";
-import YouTube from "react-youtube";
 import ReactPlayer from "react-player";
 import MovieDetails from "./parts/MovieDetails";
+import MuteBtn from "../parts/MuteBtn";
+import { connect } from 'react-redux'
+import * as actions from '../../actions/actions'
+import Fade from 'react-reveal/Fade';
+
 
 
 class Movie extends Component {
@@ -18,53 +22,25 @@ class Movie extends Component {
         active: true,
         z_index: 999999,
       });
-     await this.getMovieDetails()
-     this.getVideo();
-    }, 500);
+      this.getVideo();
+    }, 450);
     this.setState({
       timeout,
     });
   };
 
-  getMovieDetails = async () => {
-      const {movie} = this.props
-    const api = `movie/${movie.id}`
-   await apiGetRequest(api).then(res => {
-        if(res){
-            this.setState({
-                movie_details:res
-            })
-        }
-   })
-  }
   handleMouseOut = () => {
     window.clearTimeout(this.state.timeout);
-
     this.setState({
       active: false,
       video: false,
       show_video: false,
     });
-
     setTimeout(() => {
       this.setState({
         z_index: 0,
       });
-    }, 100);
-  };
-  handleSelect = async (ref) => {
-    this.props.handleMovieSelect();
-
-    var element = document.querySelector("#movie__element--active");
-   setTimeout(() => {
-    element.scrollIntoView({
-      behavior: "smooth",
-      block: "start",
-      inline: 'nearest'
-    });
-   }, 350);
-
-   
+    }, 200);
   };
 
   getVideo = async () => {
@@ -83,69 +59,110 @@ class Movie extends Component {
       });
     }
   };
+
+
   onReady = () => {
     this.setState({
       show_video: true,
     });
   };
-  render() {
-    const ref = React.createRef();
-    const { movie, selected } = this.props;
-    const { active, z_index, video, show_video, movie_details } = this.state;
+  handleVideoEnded = () => {
+    this.setState({
+      video: false,
+      show_video: false,
+    });
+  };
+  handleSelect = () => {
+    this.props.handleMovieSelect();
+    this.setState({
+      show_video: false,
+      video: false,
+      active:false
+    });
+  };
 
-    const opts = {
-      playerVars: {
-        // https://developers.google.com/youtube/player_parameters
-        autoplay: video ? 1 : 0,
-        controls: 0,
-      },
-    };
+
+
+  render() {
+    const { movie , selected, selected_movie, mobile} = this.props;
+    const {z_index, video, show_video, movie_details, active, img_loaded } = this.state;
+    const {movie_muted} = this.props.global
+    console.log(selected)
     return (
-      <div
+     <Fade
+     clear
+     >
+        <div
         id={active   ? "movie__element--active" : ""}
-      
         style={{
           zIndex: z_index,
+          border:selected_movie ? '2px solid white'  :''
         }}
-      
-        onMouseEnter={() => this.handleMouseEnter()}
+        onMouseEnter={() => !mobile && !selected?  this.handleMouseEnter() : ''}
         onMouseLeave={() => this.handleMouseOut()}
-        onClick={() => this.handleSelect(ref)}
+        onClick={(e) =>{ e.stopPropagation();  this.handleSelect()}}
         className="movie__element"
       >
-        <aside 
-         ref = {ref}
-        className="movie__offset"></aside>
-        {video && active ? (
+        {video && !selected? (
+          <>
           <div
             id={show_video ? "video__wrapper--active" : ""}
             className="video__wrapper"
           >
+       
             <ReactPlayer
               onBufferEnd={this.onReady}
               className="video"
               url={`${VIDEO_API}${video}`}
               playing
-            />
+              onEnded={this.handleVideoEnded}
+              muted = {movie_muted}
+              onError = {() => this.handleVideoEnded}
+            /> 
           </div>
+         {show_video ?  <MuteBtn
+             muted = {movie_muted}
+             mute = {() => this.props.updateGlobalReducer('movie_muted', !movie_muted) }
+             /> : ''}
+          </>
         ) : (
           ""
         )}
 
         <img
           style={{
-            opacity: show_video ? 0 : 1,
+            opacity:show_video || !img_loaded ? 0 : 1,
+           
           }}
           src={`${IMAGES_API}/${movie.poster_path}`}
+          onLoad = {() => this.setState({img_loaded:true})}
           alt=""
         />
-      {active  ?  <MovieDetails 
-        movie_details = {movie_details}
-        movie = {movie}
-      /> : ''}
+        {active && !selected? (
+          <MovieDetails
+            show_video={show_video}
+            movie_details={movie_details}
+            movie={movie}
+          />
+        ) : (
+          ""
+        )}
+          
+         <div 
+         style ={{
+           opacity:selected_movie  ?1  :''
+         }}
+         className="movie__arrow__box">
+           <aside className='movie__arrow'></aside>
+         </div>
       </div>
+     </Fade>
     );
   }
 }
 
-export default Movie;
+function mapStateToProps({ global }) {
+  return { global }
+}
+
+export default (connect(mapStateToProps, actions)(Movie))
