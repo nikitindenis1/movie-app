@@ -49,12 +49,12 @@ class Navbar extends Component {
        <figure
        onClick = {() =>this.sctollToTop()}
        >MovieTime</figure>
-        <button
+        <div
         className='mobile__hamgurger'
         onClick = {() => this.toggleMobileMenu(!mobile_menu)}
         >
            {mobile_menu ? <CloseIcon /> : <MenuRoundedIcon />}
-        </button>
+        </div>
         <ul 
         id={mobile_menu ? 'navbar__categories--active' :''}
         className="navbar__categories flex__start">
