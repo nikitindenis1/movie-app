@@ -6,7 +6,9 @@ import { apiGetRequest } from "../../api/api";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Navbar from "../navbar/Navbar";
 import SmallLoader from "../parts/SmallLoader";
-
+function isHidden(el) {
+  return (el.offsetParent === null)
+}
 class MoviesList extends Component {
   constructor() {
     super();
@@ -161,6 +163,7 @@ class MoviesList extends Component {
                           <Movie
                           mobile = {size === 2}
                             key={m.id}
+                            isHidden = {isHidden}
                             selected={selected === i}
                             handleMovieSelect={() =>
                               this.handleMovieSelect(i, m)

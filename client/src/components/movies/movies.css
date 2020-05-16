@@ -219,7 +219,8 @@
     width: 100%;
     position: absolute;
     transform-origin: top;
-    height: calc(100vh - 15vw - 95px);
+    height: calc(100vh - 15vw - 29px);
+    min-height: 550px;
     top: calc(100% + 20px);
     transition: 0.45s all;
     background: black;
@@ -440,9 +441,11 @@
     left: 0px;
     top: 0px;
     width: 100%;
-    height: 100%;
+   height: 100%;
     padding: 20px 20px 20px 40px;
     transition: 0.2s all;
+    display: flex;
+    flex-direction: column;
 }
 
 .movie__popup__overview .overlay {
@@ -601,7 +604,7 @@
 }
 
 #selected__row ul {
-    height: 15vw;
+    height: 12vw;
 }
 
 #selected__row .movie__element {
@@ -673,11 +676,12 @@
     }
 
     #selected__row ul {
-        height: 18vw;
+        height: 14vw;
     }
 
-    #movie__popup--active {
-        height: calc(100vh - 18vw - 100px);
+    .movie__popup {
+        height: calc(100vh - 15vw - 86px);
+      
     }
 
     #selected__row__offset {
@@ -713,7 +717,7 @@
         height: 18vw;
     }
 
-    #movie__popup--active {
+    #movie__popup {
         height: calc(100vh - 18vw - 90px);
     }
 
@@ -745,9 +749,9 @@
         height: 37vw;
     }
 
-    #movie__popup--active {
+    .movie__popup {
         height: auto;
-        min-height: 380px;
+        min-height: 0px;
         padding-bottom: 40px;
     }
 

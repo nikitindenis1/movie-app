@@ -19,7 +19,7 @@ class MoviePopup extends Component {
   }
 
   componentWillMount() {
-    const { selected_movie } = this.props;
+    const { selected_movie, mobile } = this.props;
     setTimeout(() => {
       this.setState({
         loaded: true,
@@ -30,7 +30,7 @@ class MoviePopup extends Component {
       this.setState({
         show_content:true
       })
-    }, 700);
+    },mobile ? 100  :  700);
   }
 
   async componentWillReceiveProps(nextProps) {
@@ -41,16 +41,19 @@ class MoviePopup extends Component {
   }
 
   getData = async (id) => {
+    const {mobile} = this.props
     this.setState({
       movie:{},
       video:''
     })
     await this.getMovie(id);
+   if(!mobile){
     this.getCredits(id);
     this.getRelated(id);
       this.setState({
         section: "OVERVIEW",
       });
+   }
   };
   getVideo = async (id) => {
       const api = `movie/${id}/videos`;

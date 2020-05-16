@@ -81,18 +81,20 @@ class Movie extends Component {
     });
   };
 
-
-
+ 
   render() {
-    const { movie , selected, selected_movie, mobile} = this.props;
+    const { movie , selected, selected_movie, mobile, } = this.props;
     const {z_index, video, show_video, movie_details, active, img_loaded } = this.state;
     const {movie_muted} = this.props.global
+    
    
     return (
      <Fade
      clear
      >
         <div
+       
+        ref={(el) => this.yourElement = el}
         id={active   ? "movie__element--active" : ""}
         style={{
           zIndex: z_index,
