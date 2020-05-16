@@ -9,7 +9,7 @@ class MobileTrailer extends Component {
   render() {
     const { video } = this.props;
     return (
-      <div className="mobile__trailer">
+        video ?  <div className="mobile__trailer">
         <iframe
           className="mobile__video"
           allow="autoplay; encrypted-media"
@@ -17,7 +17,7 @@ class MobileTrailer extends Component {
           frameBorder="0"
           src={`${MOBILE_VIDEO_API}${video}`}
         ></iframe>
-      </div>
+      </div> : ''
     );
   }
 }

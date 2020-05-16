@@ -47,7 +47,7 @@
     margin-right: 20px;
     height: 100%;
     position: relative;
-    transition: 0.4s all;
+    transition: 0.3s all;
     background: rgba(0, 0, 0, 0.3);
     cursor: pointer;
 
@@ -747,7 +747,7 @@
 
     #movie__popup--active {
         height: auto;
-        min-height: 300px;
+        min-height: 380px;
         padding-bottom: 40px;
     }
 

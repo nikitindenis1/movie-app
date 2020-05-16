@@ -14,7 +14,7 @@ class MoviesList extends Component {
       movies: [],
       page: 1,
       size: 6,
-      page_limit:6,
+      page_limit:5,
       pending_movies: [],
       hasMore: true,
       page_loaded:true,
@@ -64,7 +64,8 @@ class MoviesList extends Component {
   };
 
   scrollToElement = async () => {
-    wait(600).then(() => {
+    const {size} = this.state
+    wait(size === 2 ? 100 : 400).then(() => {
       var element = document.querySelector("#selected__row__offset");
       if (element) {
         element.scrollIntoView({

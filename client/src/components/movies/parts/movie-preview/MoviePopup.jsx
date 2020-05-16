@@ -27,7 +27,10 @@ class MoviePopup extends Component {
     }, 20);
     setTimeout(() => {
       this.getData(selected_movie);
-    }, 600);
+      this.setState({
+        show_content:true
+      })
+    }, 700);
   }
 
   async componentWillReceiveProps(nextProps) {
@@ -109,12 +112,13 @@ class MoviePopup extends Component {
     });
   };
   render() {
-    const { loaded, section, movie, credits, similar, video } = this.state;
+    const { loaded, section, movie, credits, similar, video, show_content } = this.state;
     const { selected_movie , size, mobile} = this.props;
 
     return (
       <div id={loaded ? "movie__popup--active" : ""} className="movie__popup">
-        <button className="movie__popup__close" onClick={() => this.close()}>
+      {show_content ?  <>
+       <button className="movie__popup__close" onClick={() => this.close()}>
           <CloseIcon />
         </button>
 
@@ -166,6 +170,7 @@ class MoviePopup extends Component {
               })
             : ""}
         </section>
+       </> : ''}
       </div>
     );
   }
