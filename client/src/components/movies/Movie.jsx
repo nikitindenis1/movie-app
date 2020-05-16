@@ -23,7 +23,7 @@ class Movie extends Component {
         z_index: 999999,
       });
       this.getVideo();
-    }, 650);
+    }, 350);
     this.setState({
       timeout,
     });
