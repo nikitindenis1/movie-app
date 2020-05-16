@@ -201,3 +201,7 @@ img{
 	top: 50%!important;
 	position: fixed;
 }
+
+html {
+	scroll-behavior: smooth;
+  }

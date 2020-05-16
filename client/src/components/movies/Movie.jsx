@@ -87,7 +87,7 @@ class Movie extends Component {
     const { movie , selected, selected_movie, mobile} = this.props;
     const {z_index, video, show_video, movie_details, active, img_loaded } = this.state;
     const {movie_muted} = this.props.global
-    console.log(selected)
+   
     return (
      <Fade
      clear

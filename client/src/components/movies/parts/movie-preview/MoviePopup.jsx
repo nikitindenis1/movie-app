@@ -24,10 +24,10 @@ class MoviePopup extends Component {
       this.setState({
         loaded: true,
       });
-    }, 50);
+    }, 20);
     setTimeout(() => {
       this.getData(selected_movie);
-    }, 300);
+    }, 600);
   }
 
   async componentWillReceiveProps(nextProps) {

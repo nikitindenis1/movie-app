@@ -36,7 +36,7 @@
 
 .movies__list__flex ul {
     height: 23vw;
-    transition: 0.3s all;
+    transition: 0.2s all;
 }
 
 
@@ -227,7 +227,7 @@
     opacity: 0;
     z-index: 9999999;
     overflow: hidden;
-    transform: translate(0, 30%);
+    transform: translate(0, 10%);
 }
 
 .movie__popup__sections {

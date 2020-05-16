@@ -51,10 +51,9 @@ class MoviesList extends Component {
     this.setState({
       selected: row_id,
       selected_movie: movie.id,
-    });
-    this.setState({
       show_popup: true,
     });
+ 
     this.scrollToElement();
   };
 
@@ -69,7 +68,7 @@ class MoviesList extends Component {
       var element = document.querySelector("#selected__row__offset");
       if (element) {
         element.scrollIntoView({
-          behavior: "smooth",
+          behavior: "auto",
           block: "start",
           inline: "nearest",
         });
@@ -150,7 +149,8 @@ class MoviesList extends Component {
                     className="movies__list__flex flex__column"
                   >
                     {selected === i ? (
-                      <aside id="selected__row__offset"></aside>
+                      <aside
+                       id="selected__row__offset"></aside>
                     ) : (
                       ""
                     )}

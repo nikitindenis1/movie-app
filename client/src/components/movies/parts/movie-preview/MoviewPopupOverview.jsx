@@ -44,7 +44,6 @@ class MoviewPopupOverview extends Component {
   };
   render() {
     const { movie, active, video, mobile } = this.props;
-    console.log(mobile);
     const { img_loaded, muted, show_video, mobile_on } = this.state;
     return (
       <div className="movie__popup__overview movie__popup__section">
