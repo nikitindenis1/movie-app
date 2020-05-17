@@ -23,6 +23,14 @@ class MoviesList extends Component {
       api:'movie/popular'
     };
   }
+
+
+
+
+  overflowBody = (val) => {
+    let body = document.querySelector('body')
+    body.style.overflow = val ? 'hidden' : ''
+  }
   async componentWillMount() {
    
     window.scrollTo(0,0)
@@ -67,7 +75,10 @@ class MoviesList extends Component {
 
   scrollToElement = async () => {
     const {size} = this.state
-    wait(size === 2 ? 100 : 400).then(() => {
+    if(size === 2){
+      this.overflowBody(true)
+    }
+    wait(size === 2 ? 800 : 400).then(() => {
       var element = document.querySelector("#selected__row__offset");
       if (element) {
         element.scrollIntoView({
@@ -77,6 +88,7 @@ class MoviesList extends Component {
         });
       }
     });
+  
   };
   selectCategory = (category) => {
     this.setState({
@@ -92,11 +104,15 @@ class MoviesList extends Component {
     })
 }
   closePreview = () => {
+    const {size} = this.state
     this.setState({
       selected: "",
       selected_movie: "",
       show_popup: "",
     });
+    if(size === 2 ){
+      this.overflowBody(false)
+    }
   };
   loadElements = async () => {
     const { size, page, api } = this.state;

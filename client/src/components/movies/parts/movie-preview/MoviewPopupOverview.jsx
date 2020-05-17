@@ -3,10 +3,12 @@ import { connect } from "react-redux";
 import * as actions from "../../../../actions/actions";
 import Fade from "react-reveal/Fade";
 import ReactPlayer from "react-player";
-import { IMAGES_API_Q, VIDEO_API } from "../../../../tools/keys";
+import { IMAGES_API_Q, VIDEO_API , IMAGES_API} from "../../../../tools/keys";
 import MuteBtn from "../../../parts/MuteBtn";
 import moment from "moment";
 import MobileTrailer from "./MobileTrailer";
+import ContentLoader from "./ContentLoader";
+import SmallLoader from "../../../parts/SmallLoader";
 class MoviewPopupOverview extends Component {
   constructor() {
     super();
@@ -32,7 +34,7 @@ class MoviewPopupOverview extends Component {
       this.setState({
         img_loaded: false,
         show_video: "",
-        mobile_on: "",
+     
       });
     }
   }
@@ -44,9 +46,9 @@ class MoviewPopupOverview extends Component {
   };
   render() {
     const { movie, active, video, mobile } = this.props;
-    const { img_loaded, muted, show_video, mobile_on } = this.state;
+    const { img_loaded, muted, show_video } = this.state;
     return (
-      <div className="movie__popup__overview movie__popup__section">
+      <div className="movie__popup__overview">
         <section
           style={{
             opacity: active ? 0 : 1,
@@ -56,7 +58,16 @@ class MoviewPopupOverview extends Component {
         ></section>
         <div className="movie__popup__overview__content">
           {movie.id ? (
-            <Fade clear>
+            <Fade 
+            duration = {2000}
+            clear>
+              {
+                mobile ? 
+                <figure className='popup__mobile__img'>
+                  <img  src={`${IMAGES_API}/${movie.backdrop_path}`} alt=""/>
+                </figure>
+                :''
+              }
               <h2>{movie.title}</h2>
               <span className="flex__start">
                 <h4>
@@ -67,7 +78,8 @@ class MoviewPopupOverview extends Component {
                 </figure>
               
               </span>
-              <p>{movie.overview}</p>
+              <p
+              >{movie.overview}</p>
               <span className="flex__start">
                 <h4>Rating</h4>
                 <figure className="flex__center movie__popup__overview__figure">{`${
@@ -76,7 +88,7 @@ class MoviewPopupOverview extends Component {
               </span>
             </Fade>
           ) : (
-            ""
+           <ContentLoader />
           )}
         </div>
 
@@ -119,7 +131,7 @@ class MoviewPopupOverview extends Component {
                 alt=""
               />
             ) : (
-              null
+             <SmallLoader />
             )}
           </section>
         ) : (

@@ -25,47 +25,47 @@ class MoviePopup extends Component {
         loaded: true,
       });
     }, 20);
-    setTimeout(() => {
-      this.getData(selected_movie);
-      this.setState({
-        show_content:true
-      })
-    },mobile ? 100  :  700);
+    setTimeout(
+      () => {
+        this.getData(selected_movie);
+        this.setState({
+          show_content: true,
+        });
+      },
+      mobile ? 100 : 700
+    );
   }
 
   async componentWillReceiveProps(nextProps) {
     if (nextProps.selected_movie !== this.props.selected_movie) {
       this.getData(nextProps.selected_movie);
     }
-   
   }
 
   getData = async (id) => {
-    const {mobile} = this.props
+    const { mobile } = this.props;
     this.setState({
-      movie:{},
-      video:''
-    })
+      movie: {},
+      video: "",
+    });
     await this.getMovie(id);
-   if(!mobile){
-    this.getCredits(id);
-    this.getRelated(id);
+    if (!mobile) {
+      this.getCredits(id);
+      this.getRelated(id);
       this.setState({
         section: "OVERVIEW",
       });
-   }
+    }
   };
   getVideo = async (id) => {
-      const api = `movie/${id}/videos`;
-      await apiGetRequest(api).then((res) => {
-       setTimeout(() => {
+    const api = `movie/${id}/videos`;
+    await apiGetRequest(api).then((res) => {
+      setTimeout(() => {
         this.setState({
           video: res && res.results[0] ? res.results[0].key : "",
         });
-       }, 400);
-      });
-   
-
+      }, 400);
+    });
   };
 
   getMovie = async (movie_id) => {
@@ -83,7 +83,7 @@ class MoviePopup extends Component {
     if (res) {
       this.setState({
         similar: res.results,
-        loaded: true,
+        similar_loaded: true,
       });
     }
   };
@@ -102,7 +102,6 @@ class MoviePopup extends Component {
     this.setState({
       loaded: false,
       video: "",
-      
     });
     setTimeout(() => {
       this.props.closePreview();
@@ -115,65 +114,82 @@ class MoviePopup extends Component {
     });
   };
   render() {
-    const { loaded, section, movie, credits, similar, video, show_content } = this.state;
-    const { selected_movie , size, mobile} = this.props;
+    const {
+      loaded,
+      section,
+      movie,
+      credits,
+      similar,
+      video,
+      show_content,
+      similar_loaded
+    } = this.state;
+    const { selected_movie, size, mobile } = this.props;
 
     return (
       <div id={loaded ? "movie__popup--active" : ""} className="movie__popup">
-      {show_content ?  <>
-       <button className="movie__popup__close" onClick={() => this.close()}>
-          <CloseIcon />
-        </button>
+        {show_content ? (
+          <>
+            <button
+              className="movie__popup__close"
+              onClick={() => this.close()}
+            >
+              <CloseIcon />
+            </button>
 
-        <MoviewPopupOverview
-          movie={movie}
-          video = {video}
-          selected_movie = {selected_movie}
-          active={section === "OVERVIEW"}
-          getVideo = {() => this.getVideo(selected_movie)}
-          mobile = {mobile}
-        />
-        <div
-          style={{
-            opacity: section === "OVERVIEW" ? 0 : 1,
-            pointerEvents: section !== "OVERVIEW" ? "all" : "none",
-          }}
-          className="movie__popup__sections"
-        >
-          <aside className="movie__popup__sections__shadow"></aside>
-          <header>{movie.title}</header>
-          {section === "DETAILS" ? (
-            <MoviePopupDetails 
-           
-            credits={credits} movie={movie} />
-          ) : section === "RELATED" ? (
-            <MoviePopupRelated
-            size = {size}
-              getData={this.getData}
-              similar={similar}
-              movie_id={selected_movie}
-              updateParent={this.props.updateParent}
+            <MoviewPopupOverview
+              movie={movie}
+              video={video}
+              selected_movie={selected_movie}
+              active={section === "OVERVIEW"}
+              getVideo={() => this.getVideo(selected_movie)}
+              mobile={mobile}
             />
-          ) : ''}
-        </div>
-        <section className="movie__popup__actions flex__start">
-          {buttons && buttons.length > 0
-            ? buttons.map((m, i) => {
-                return (
-                  <button
-                    style={{
-                      borderBottom: section === m ? "5px solid red" : "",
-                    }}
-                    onClick={() => this.changeSection(m)}
-                    key={i}
-                  >
-                    {m}
-                  </button>
-                );
-              })
-            : ""}
-        </section>
-       </> : ''}
+            <div
+              style={{
+                opacity: section === "OVERVIEW" ? 0 : 1,
+                pointerEvents: section !== "OVERVIEW" ? "all" : "none",
+              }}
+              className="movie__popup__sections"
+            >
+              <aside className="movie__popup__sections__shadow"></aside>
+              <header>{movie.title}</header>
+              {section === "DETAILS" ? (
+                <MoviePopupDetails credits={credits} movie={movie} />
+              ) : section === "RELATED" ? (
+                <MoviePopupRelated
+                  size={size}
+                  getData={this.getData}
+                  similar={similar}
+                  movie_id={selected_movie}
+                  updateParent={this.props.updateParent}
+                  similar_loaded = {similar_loaded}
+                />
+              ) : (
+                ""
+              )}
+            </div>
+            <section className="movie__popup__actions flex__start">
+              {buttons && buttons.length > 0
+                ? buttons.map((m, i) => {
+                    return (
+                      <button
+                        style={{
+                          borderBottom: section === m ? "5px solid red" : "",
+                        }}
+                        onClick={() => this.changeSection(m)}
+                        key={i}
+                      >
+                        {m}
+                      </button>
+                    );
+                  })
+                : ""}
+            </section>
+          </>
+        ) : (
+          ""
+        )}
       </div>
     );
   }

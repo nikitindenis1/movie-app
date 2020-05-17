@@ -7,12 +7,12 @@ import moment from "moment";
 import PlayCircleOutlineIcon from "@material-ui/icons/PlayCircleOutline";
 
 const MoviePopupRelated = (props) => {
-  const { similar, size } = props;
+  const { similar, size, similar_loaded } = props;
   var settings = {
     dots: false,
     infinite: false,
     speed: 200,
-    slidesToShow:size === 4  ?3 : 5,
+    slidesToShow: size === 4 ? 3 : 5,
     slidesToScroll: 1,
     touchMove: false,
   };
@@ -25,9 +25,7 @@ const MoviePopupRelated = (props) => {
                 <div className="movie__popup__related__item" key={m.id}>
                   <figure className="movie__popup__related__item__img">
                     <div
-                      onClick={() =>
-                        props.updateParent("selected_movie", m.id)
-                      }
+                      onClick={() => props.updateParent("selected_movie", m.id)}
                       className="flex__center"
                     >
                       <PlayCircleOutlineIcon />
