@@ -27,7 +27,6 @@ class MoviePageAbout extends Component {
 
 componentWillReceiveProps(nextProps){
  if(nextProps.movie_id !== this.props.movie_id){
-   console.log('wefwwfwefw')
    this.setState({
      show_video:false
    })

@@ -4,7 +4,6 @@ import { MOVIES_ROUTE, MOVIE_ROUTE } from "../../tools/routes";
 import { withRouter } from "react-router-dom";
 import { connect } from "react-redux";
 import * as actions from "../../actions/actions";
-import MovieReviews from "./sections/MovieReviews";
 import MovieCredits from "./sections/MovieCredits";
 import MovieRelated from "./sections/MovieRelated";
 import MoviePageAbout from "./parts/MoviePageAbout";
@@ -131,9 +130,7 @@ class MoviePage extends Component {
           })}
         </ul>
         <div className="movie__page__content">
-          {active_section === "reviews" ? (
-            <MovieReviews movie_id={movie_id} />
-          ) : active_section === "credits" ? (
+          { active_section === "credits" ? (
             <MovieCredits movie_id={movie_id} />
           ) : active_section === "similar" ? (
             <MovieRelated changeMovie={this.changeMovie} movie_id={movie_id} />

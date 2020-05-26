@@ -19,7 +19,7 @@ const MoviePopupRelated = (props) => {
   return (
     <div className="movie__popup__related">
       <Slider {...settings}>
-        {similar && similar.length > 0
+        {similar_loaded && similar && similar.length > 0
           ? similar.map((m) => {
               return (
                 <div className="movie__popup__related__item" key={m.id}>
@@ -42,7 +42,7 @@ const MoviePopupRelated = (props) => {
                 </div>
               );
             })
-          : "  "}
+          : similar_loaded && similar && similar.length === 0  ? ''    :''}
       </Slider>
     </div>
   );

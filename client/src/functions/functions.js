@@ -67,5 +67,6 @@ export const getMovieSize = (movies, pending_movies, width, size) => {
     obj.size = size;
   
   }
+  
  return obj
 };
